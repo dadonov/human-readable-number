@@ -36,44 +36,45 @@ let tens = [
 ];
 
 module.exports = function toReadable(number) {
-    let indices = number.toString().split("");
-    if (indices.length === 1) {
-        return ones[indices[0]];
+    let digits = number.toString().split("");
 
-        // 11- 19
+    // one, two, three...nine
+    if (digits.length === 1) {
+        return ones[digits[0]];
+
+        // eleven - nineteen
     } else if (number > 10 && number < 20) {
-        return teens[indices[1]];
+        return teens[digits[1]];
     }
-    // whole tens
-    else if (indices.length === 2 && number % 10 == 0) {
-        return tens[indices[0]];
+    // ten, twenty, thirty...ninety
+    else if (digits.length === 2 && number % 10 == 0) {
+        return tens[digits[0]];
     }
-    // non whole tens
-    else if (indices.length === 2 && number % 10 !== 0) {
-        return tens[indices[0]] + " " + ones[indices[1]];
+    // twenty one, twenty two...ninety nine
+    else if (digits.length === 2 && number % 10 !== 0) {
+        return tens[digits[0]] + " " + ones[digits[1]];
     }
-    // whole hundreds
-    else if (indices.length === 3 && number % 100 == 0) {
-        return `${ones[indices[0]]} hundred`;
+    // one hundred, two hundred...nine hundred
+    else if (digits.length === 3 && number % 100 == 0) {
+        return `${ones[digits[0]]} hundred`;
     }
-    // 103 204 504 etc
-    else if (indices.length === 3 && indices[1] == 0) {
-        return `${ones[indices[0]]} hundred ${ones[indices[2]]}`;
+    // one hundred one, one hundred two...nine hundred nine
+    else if (digits.length === 3 && digits[1] == 0) {
+        return `${ones[digits[0]]} hundred ${ones[digits[2]]}`;
+    }
+    //one hundred ten, one hundred eleven...nine hundred nineteen
+    else if (digits.length === 3 && digits[1] == 1) {
+        return `${ones[digits[0]]} hundred ${teens[digits[2]]}`;
+    }
+    // one hundred twenty, one hundred thirty...nine hundred ninety
+    else if (digits.length === 3 && number % 100 !== 0 && number % 10 == 0) {
+        return `${ones[digits[0]]} hundred ${tens[digits[1]]}`;
     }
 
-    else if (indices.length === 3 && indices[1] == 1) {
-        return `${ones[indices[0]]} hundred ${teens[indices[2]]}`;
-    }
-    // 150 250 560 etc
-    else if (indices.length === 3 && number % 100 !== 0 && number % 10 == 0) {
-        return `${ones[indices[0]]} hundred ${tens[indices[1]]}`;
-    }
-
-    // 154 345 234 etc
-    else if (indices.length === 3 && number % 100 !== 0 && number % 10 !== 0) {
-        return `${ones[indices[0]]} hundred ${tens[indices[1]]} ${
-            ones[indices[2]]
+    // one hundred twenty one, one hundred twenty two...nine hundred ninety nine
+    else if (digits.length === 3 && number % 100 !== 0 && number % 10 !== 0) {
+        return `${ones[digits[0]]} hundred ${tens[digits[1]]} ${
+            ones[digits[2]]
         }`;
     }
 };
-
