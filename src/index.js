@@ -42,7 +42,7 @@ module.exports = function toReadable(number) {
     if (digits.length === 1) {
         return ones[digits[0]];
 
-        // eleven - nineteen
+        // eleven, twelve...nineteen
     } else if (number > 10 && number < 20) {
         return teens[digits[1]];
     }
@@ -52,7 +52,7 @@ module.exports = function toReadable(number) {
     }
     // twenty one, twenty two...ninety nine
     else if (digits.length === 2 && number % 10 !== 0) {
-        return tens[digits[0]] + " " + ones[digits[1]];
+        return `${tens[digits[0]]} ${ones[digits[1]]}`;
     }
     // one hundred, two hundred...nine hundred
     else if (digits.length === 3 && number % 100 == 0) {
